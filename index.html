@@ -1,0 +1,27 @@
+<include file="$header" remwidth="750" remswitch="1" />
+<div id="J_app" v-cloak>
+    <search-page v-on:search="search" :hot-list="hotList" :search-spm="searchSpm">
+        {/* scope 在Vue2.5版本之后弃用, 如Vue版本更新2.6以上，可更换成v-slot传值 */}
+        <template scope="slotProps">
+            <div v-if="slotProps.resultshow" class="search-result">
+                <div class="result-topbar">
+                    <a href="javascript:void(0);" class="topbar-item" :class="{'cur' : tabType == 'zhonghe'}" @click="tabClick('zhonghe')">综合</a>
+                    <a href="javascript:void(0);" class="topbar-item price" :class="{'cur' : tabType == 'jiage', 'down' : proSort == 'as_price'}" @click="tabClick('jiage')">价格</a>
+                </div>
+                <div v-if="productList.length > 0" class="product-list">
+                    <product-item v-for="item in productList" :item="item"></product-item>
+                </div>
+                <div v-else class="product-empty">
+                    <img src="//static2.51fanli.net/goudan/src/h5/store/images/search/empty-img.png" alt="">
+                    <p class="empty-title">没有搜索到相关的商品</p>
+                    <p class="empty-text">请试试其他关键词</p>
+                </div>
+                <div v-if="loaddingShow" class="loadding-box">
+                    <img src="//static2.51fanli.net/goudan/src/h5/store/images/search/loadding-icon@2x.png" alt="" class="loadding-img">
+                    <p class="loadding-text">努力加载中</p>
+                </div>
+            </div>
+        </template>
+    </search-page>
+</div>
+<include file="$footer" />
